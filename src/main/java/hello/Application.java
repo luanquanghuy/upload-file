@@ -9,6 +9,10 @@ import org.springframework.context.annotation.Bean;
 import hello.storage.StorageProperties;
 import hello.storage.StorageService;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 @SpringBootApplication
 @EnableConfigurationProperties(StorageProperties.class)
 public class Application {
@@ -22,6 +26,8 @@ public class Application {
         return (args) -> {
             //storageService.deleteAll();
             storageService.init();
+//            System.out.println(Paths.get("").resolve("huy.txt"));
+//            Files.createDirectories(Paths.get("huy/huy"));
         };
     }
 }

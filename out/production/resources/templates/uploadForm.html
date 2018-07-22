@@ -1,14 +1,19 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <body>
+
+	<form th:action="@{/logout}" method="post">
+		<input type="submit" value="Sign out"/>
+	</form>
+
 
 	<div th:if="${message}">
 		<h2 th:text="${message}"/>
 	</div>
 
 	<div>
-		<form method="POST" enctype="multipart/form-data" action="/">
+		<form method="POST" enctype="multipart/form-data" action="/upload">
 			<table>
-				<tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+				<tr><td>File to upload:</td><td><input type="file" name="file1" webkitdirectory mozdirectory/></td></tr>
 				<tr><td></td><td><input type="submit" value="Upload" /></td></tr>
 			</table>
 		</form>
@@ -17,7 +22,7 @@
 	<div>
 		<ul>
 			<li th:each="file : ${files}">
-				<a th:href="${file}" th:text="${file}" />
+				<a th:href="${file}" th:text="${file}" ></a>
 			</li>
 		</ul>
 	</div>

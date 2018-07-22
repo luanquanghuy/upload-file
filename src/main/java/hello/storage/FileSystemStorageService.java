@@ -3,10 +3,7 @@ package hello.storage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.nio.file.*;
 import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +28,9 @@ public class FileSystemStorageService implements StorageService {
     public void store(MultipartFile file) {
         String filename = StringUtils.cleanPath(file.getOriginalFilename());
         try {
-            if (file.isEmpty()) {
-                throw new StorageException("Failed to store empty file " + filename);
-            }
+//            if (file.isEmpty()) {
+//                throw new StorageException("Failed to store empty file " + filename);
+//            }
             if (filename.contains("..")) {
                 // This is a security check
                 throw new StorageException(
@@ -41,8 +38,10 @@ public class FileSystemStorageService implements StorageService {
                                 + filename);
             }
             try (InputStream inputStream = file.getInputStream()) {
-                Files.copy(inputStream, this.rootLocation.resolve(filename),
-                    StandardCopyOption.REPLACE_EXISTING);
+                Files.copy(inputStream, this.rootLocation.resolve(filename)
+                    ,StandardCopyOption.REPLACE_EXISTING);
+ //               );
+                System.out.println("uploaded file " + this.rootLocation.resolve(filename));
             }
         }
         catch (IOException e) {
